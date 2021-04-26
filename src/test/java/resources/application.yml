@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: "test"
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;Mode=Oracle
+    username: sa
+    password: sa
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      FAIL_ON_EMPTY_BEANS: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  flyway:
+    enabled: false
+    baseline-on-migrate: false
+
+  jpa:
+    hibernate:
+      use-new-id-generator-mappings: true
