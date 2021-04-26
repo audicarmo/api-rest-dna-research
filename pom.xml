@@ -19,17 +19,18 @@
 	</parent>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<java-faker.version>1.0.2</java-faker.version>
-		<ojdbc8.version>19.7.0.0</ojdbc8.version>
-		<querydsl.version>4.3.1</querydsl.version>
+		<docker.image.prefix>dna</docker.image.prefix>
+		<dockerfile-plugin.version>1.4.13</dockerfile-plugin.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<json.version>20201115</json.version>
 		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-		<docker.image.prefix>dna</docker.image.prefix>
-		<dockerfile-plugin.version>1.4.13</dockerfile-plugin.version>
+		<java.version>1.8</java.version>
+		<java-faker.version>1.0.2</java-faker.version>
+		<model-mapper.version>2.2.0</model-mapper.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<querydsl.version>4.3.1</querydsl.version>
+		<ojdbc8.version>19.7.0.0</ojdbc8.version>
 	</properties>
 
 	<dependencies>
@@ -58,6 +59,11 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${model-mapper.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -187,6 +193,25 @@
 							<outputDirectory>target/generated-sources/java</outputDirectory>
 							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<configLocation>dna_checks.xml</configLocation>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
